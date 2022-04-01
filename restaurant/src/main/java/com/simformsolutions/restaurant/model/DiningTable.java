@@ -6,17 +6,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Table {
+public class DiningTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long tableId;
     private long size;
     private String status;
 
-    public Table() {
+    public DiningTable() {
     }
 
-    public Table(long tableId, long size, String status) {
+    public DiningTable(long tableId, long size, String status) {
         this.tableId = tableId;
         this.size = size;
         this.status = status;
