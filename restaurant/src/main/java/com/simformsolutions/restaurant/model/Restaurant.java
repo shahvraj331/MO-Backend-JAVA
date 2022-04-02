@@ -13,7 +13,7 @@ public class Restaurant {
     private String email;
 
     @OneToMany(targetEntity = Table.class)
-    @JoinColumn(name = "fk_rId", referencedColumnName = "rId")
+    @JoinColumn(name = "fkRestaurantId", referencedColumnName = "restaurantId")
     private List<Table> tables;
 
     public Restaurant() {
