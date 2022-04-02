@@ -12,14 +12,14 @@ public class Restaurant {
     private String address;
     private String email;
 
-    @OneToMany(targetEntity = Table.class)
+    @OneToMany(targetEntity = DiningTable.class)
     @JoinColumn(name = "fkRestaurantId", referencedColumnName = "restaurantId")
-    private List<Table> tables;
+    private List<DiningTable> tables;
 
     public Restaurant() {
     }
 
-    public Restaurant(long rId, String name, String address, String email, List<Table> tables) {
+    public Restaurant(long rId, String name, String address, String email, List<DiningTable> tables) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.address = address;
@@ -59,11 +59,11 @@ public class Restaurant {
         this.email = email;
     }
 
-    public List<Table> getTables() {
+    public List<DiningTable> getTables() {
         return tables;
     }
 
-    public void setTables(List<Table> tables) {
+    public void setTables(List<DiningTable> tables) {
         this.tables = tables;
     }
 }
