@@ -24,12 +24,16 @@ public class LoginController {
 	@PostMapping("/login")
 	public ResponseEntity<String> LoginPost (@RequestBody Customer customer)
 	{
-		
-		if(customerRepo.findByEmail(customer.getEmail()) != null && customerRepo.findByPassword(customer.getPassword()) != null)
+		Customer customer1= customerRepo.findByEmail(customer.getEmail());
+		if(customer1 != null && (customer.getPassword().equals(customer1.getPassword())))
 		{
 			return new ResponseEntity<String>("Login Successfull..!!", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Wrong login credentials.", HttpStatus.UNAUTHORIZED);	
+		else
+		{
+			return new ResponseEntity<String>("Wrong login credentials.", HttpStatus.UNAUTHORIZED);
+		}
+
 		
 	}
 	
