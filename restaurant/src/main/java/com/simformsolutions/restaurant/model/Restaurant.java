@@ -1,7 +1,15 @@
 package com.simformsolutions.restaurant.model;
 
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Restaurant {
@@ -15,11 +23,17 @@ public class Restaurant {
     @OneToMany(targetEntity = DiningTable.class)
     @JoinColumn(name = "fkRestaurantId", referencedColumnName = "restaurantId")
     private List<DiningTable> tables;
+    
+    @ManyToMany
+	@JoinTable(name="menu_restaurant",
+	joinColumns = @JoinColumn(name="restaurantId"),
+	inverseJoinColumns = @JoinColumn(name="menuId"))
+	private List<Menu> menus;
 
     public Restaurant() {
     }
 
-    public Restaurant(long rId, String name, String address, String email, List<DiningTable> tables) {
+    public Restaurant(long restaurantId, String name, String address, String email, List<DiningTable> tables) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.address = address;
@@ -27,7 +41,15 @@ public class Restaurant {
         this.tables = tables;
     }
 
-    public long getRestaurantId() {
+    public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+
+	public long getRestaurantId() {
         return restaurantId;
     }
 
