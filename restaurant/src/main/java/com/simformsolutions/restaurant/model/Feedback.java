@@ -16,6 +16,10 @@ public class Feedback {
 	private int rating;
 	private String description;
 
+	// One Customer Has One Feedbacks
+	@OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+	private Customer customerFeedback;
+
 	public Feedback() {
 	}
 
@@ -27,9 +31,17 @@ public class Feedback {
 		this.customerFeedback = customerFeedback;
 	}
 
-	// One Customer Has One Feedbacks
-	@OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
-	private Customer customerFeedback;
+	public Feedback(int rating2, String description2) {
+		this.rating = rating2;
+		this.description = description2;
+	}
+
+	public Feedback(int rating2, String description2, Customer cust) {
+		this.rating = rating2;
+		this.description = description2;
+		this.customerFeedback = cust;
+	}
+
 
 	public Customer getCustomerFeedback() {
 		return customerFeedback;
