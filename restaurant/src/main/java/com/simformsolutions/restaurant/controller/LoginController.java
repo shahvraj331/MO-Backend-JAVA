@@ -17,18 +17,17 @@ public class LoginController {
 	private CustomerRepo customerRepo;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> LoginPost (@RequestParam("email") String email,@RequestParam("password") String password )
+	public ResponseEntity<Customer> LoginPost (@RequestParam("email") String email,@RequestParam("password") String password )
 	{
 		Customer customer1= customerRepo.findByEmail(email);
 		if(customer1 != null && (password.equals(customer1.getPassword())))
 		{
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<Customer>(customerRepo.findByEmail(email), HttpStatus.OK);
 		}
 		else
 		{
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Customer>(customerRepo.findByEmail(email), HttpStatus.UNAUTHORIZED);
 		}
-
 		
 	}
 	

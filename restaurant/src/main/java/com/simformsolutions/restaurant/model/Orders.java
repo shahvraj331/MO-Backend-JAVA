@@ -1,21 +1,13 @@
 package com.simformsolutions.restaurant.model;
 
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Orders {
@@ -23,9 +15,32 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long ordersId;
 	
-	@OneToMany(targetEntity = Menu.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "fkOrdersId", referencedColumnName = "ordersId")
-	private List<Menu> ordersMenu;
+	@ManyToMany(mappedBy="orders")
+	private List<Menu> menu;
+
+	public Orders(){}
+	
+	public Orders(long ordersId, List<Menu> menu) {
+		super();
+		this.ordersId = ordersId;
+		this.menu = menu;
+	}
+
+	public long getOrdersId() {
+		return ordersId;
+	}
+
+	public void setOrdersId(long ordersId) {
+		this.ordersId = ordersId;
+	}
+
+	public List<Menu> getMenu() {
+		return menu;
+	}
+
+	public void setMenu(List<Menu> menu) {
+		this.menu = menu;
+	}
 	
 	
 }
