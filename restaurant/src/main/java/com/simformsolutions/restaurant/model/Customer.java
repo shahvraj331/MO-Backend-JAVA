@@ -25,13 +25,25 @@ public class Customer {
 	@JoinColumn(name = "fkCustomerId", referencedColumnName = "customerId")
 	private List<Feedback> customerFeedbacks;
 
-	public Customer(String name, String email, String password) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
+	@OneToMany(targetEntity = Orders.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkCustomerId", referencedColumnName = "customerId")
+	private List<Orders> customerOrders;
+	
+	
+	public List<Feedback> getCustomerFeedbacks() {
+		return customerFeedbacks;
 	}
 
-	public Customer() {
+	public void setCustomerFeedbacks(List<Feedback> customerFeedbacks) {
+		this.customerFeedbacks = customerFeedbacks;
+	}
+
+	public List<Orders> getCustomerOrders() {
+		return customerOrders;
+	}
+
+	public void setCustomerOrders(List<Orders> customerOrders) {
+		this.customerOrders = customerOrders;
 	}
 
 	public long getCustomerId() {
@@ -65,5 +77,16 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public Customer(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+
+	public Customer() {
+		super();
+	}
+	
 	
 }
