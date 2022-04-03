@@ -2,6 +2,7 @@ package com.simformsolutions.restaurant.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,12 @@ public class Restaurant {
 	joinColumns = @JoinColumn(name="restaurantId"),
 	inverseJoinColumns = @JoinColumn(name="menuId"))
 	private List<Menu> menus;
+    
+    
+    
+	@OneToMany(targetEntity = Orders.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkRestaurantId", referencedColumnName = "restaurantId")
+	private List<Orders> restaurantOrders;
 
     public Restaurant() {
     }

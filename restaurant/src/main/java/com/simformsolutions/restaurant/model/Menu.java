@@ -16,19 +16,28 @@ public class Menu{
 	private int price;
 	private int buyFrequency;
 
-	public Menu() {
-	}
-
 	public Menu(long menuId, String dishName, String dishType, int price, int buyFrequency) {
 		this.menuId = menuId;
 		this.dishName = dishName;
 		this.dishType = dishType;
 		this.price = price;
-		this.buyFrequency = buyFrequency;
+		this.buyFrequency=buyFrequency;
 	}
 
 	public long getMenuId() {
 		return menuId;
+	}
+
+	public int getBuyFrequency() {
+		return buyFrequency;
+	}
+
+	public void setBuyFrequency(int buyFrequency) {
+		this.buyFrequency = buyFrequency;
+	}
+
+	public Menu() {
+		super();
 	}
 
 	public void setMenuId(long menuId) {
@@ -59,11 +68,4 @@ public class Menu{
 		this.price = price;
 	}
 
-	public int getBuyFrequency() {
-		return buyFrequency;
-	}
-
-	public void setBuyFrequency(int buyFrequency) {
-		this.buyFrequency = buyFrequency;
-	}
 }
