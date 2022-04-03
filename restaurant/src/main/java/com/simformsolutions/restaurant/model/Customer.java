@@ -25,6 +25,15 @@ public class Customer {
 	@JoinColumn(name = "fkCustomerId", referencedColumnName = "customerId")
 	private List<Feedback> customerFeedbacks;
 
+	public Customer(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+
+	public Customer() {
+	}
+
 	public long getCustomerId() {
 		return customerId;
 	}

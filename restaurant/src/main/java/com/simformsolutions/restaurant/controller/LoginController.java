@@ -4,10 +4,7 @@ package com.simformsolutions.restaurant.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.simformsolutions.restaurant.model.Customer;
 import com.simformsolutions.restaurant.repository.CustomerRepo;
@@ -22,14 +19,19 @@ public class LoginController {
 	private CustomerRepo customerRepo;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> LoginPost (@RequestBody Customer customer)
+//	public ResponseEntity<String> LoginPost (@RequestBody Customer customer)
+	public ResponseEntity<String> LoginPost (@RequestParam("email") String email,@RequestParam("password") String password )
 	{
-		
-		if(customerRepo.findByEmail(customer.getEmail()) != null && customerRepo.findByPassword(customer.getPassword()) != null)
+		Customer customer1= customerRepo.findByEmail(email);
+		if(customer1 != null && (password.equals(customer1.getPassword())))
 		{
 			return new ResponseEntity<String>("Login Successfull..!!", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Wrong login credentials.", HttpStatus.UNAUTHORIZED);	
+		else
+		{
+			return new ResponseEntity<String>("Wrong login credentials.", HttpStatus.UNAUTHORIZED);
+		}
+
 		
 	}
 	
