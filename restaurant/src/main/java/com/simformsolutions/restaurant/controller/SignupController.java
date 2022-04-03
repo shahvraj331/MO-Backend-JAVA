@@ -20,6 +20,11 @@ public class SignupController {
 	public ResponseEntity<Customer> saveStudent( @RequestParam("name") String name, @RequestParam("email") String email,@RequestParam("password") String password)
 	{
 		Customer c = new Customer(name,email,password);
-		return new ResponseEntity<Customer>(customerRepo.save(c),HttpStatus.CREATED);
+		if(customerRepo.findByEmail(email) == null){
+			return new ResponseEntity<Customer>(customerRepo.save(c),HttpStatus.CREATED);
+		}
+		else{
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }
