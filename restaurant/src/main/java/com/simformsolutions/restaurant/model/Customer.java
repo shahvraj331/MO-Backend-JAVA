@@ -1,14 +1,12 @@
 package com.simformsolutions.restaurant.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -20,31 +18,9 @@ public class Customer {
 	private String email;
 	private String password;
 
-	//One Customer Has Many Feedbacks
-	@OneToMany(targetEntity = Feedback.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "fkCustomerId", referencedColumnName = "customerId")
-	private List<Feedback> customerFeedbacks;
-
-	@OneToMany(targetEntity = Orders.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "fkCustomerId", referencedColumnName = "customerId")
-	private List<Orders> customerOrders;
+	@OneToOne(targetEntity = DiningTable.class ,cascade = CascadeType.ALL)
+	private DiningTable diningTable;
 	
-	
-	public List<Feedback> getCustomerFeedbacks() {
-		return customerFeedbacks;
-	}
-
-	public void setCustomerFeedbacks(List<Feedback> customerFeedbacks) {
-		this.customerFeedbacks = customerFeedbacks;
-	}
-
-	public List<Orders> getCustomerOrders() {
-		return customerOrders;
-	}
-
-	public void setCustomerOrders(List<Orders> customerOrders) {
-		this.customerOrders = customerOrders;
-	}
 
 	public long getCustomerId() {
 		return customerId;
@@ -78,10 +54,20 @@ public class Customer {
 		this.password = password;
 	}
 	
-	public Customer(String name, String email, String password) {
+
+	public Customer( String name, String email, String password) {
+		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
+	}
+
+	public DiningTable getDiningTable() {
+		return diningTable;
+	}
+
+	public void setDiningTable(DiningTable diningTable) {
+		this.diningTable = diningTable;
 	}
 
 	public Customer() {

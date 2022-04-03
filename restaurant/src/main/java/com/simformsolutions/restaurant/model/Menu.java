@@ -1,63 +1,66 @@
 package com.simformsolutions.restaurant.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class Menu{
+public class Menu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long menuId;
-	private String dishName;
-	private String dishType;
+	private String name;
 	private int price;
-	private int buyFrequency;
+	private int quantity;
+	private int frequency;
+	private String imageUrl;
 
-	public Menu(long menuId, String dishName, String dishType, int price, int buyFrequency) {
+	@ManyToMany
+	@JoinTable(name = "order_item", joinColumns = @JoinColumn(name = "menuId"),inverseJoinColumns = @JoinColumn(name = "ordersId"))
+	private List<Orders> orders;
+
+	public Menu()
+	{}
+	
+	public Menu(long menuId, String name, int price, int quantity, int frequency, List<Orders> orders, String imageUrl) {
+		super();
 		this.menuId = menuId;
-		this.dishName = dishName;
-		this.dishType = dishType;
+		this.name = name;
 		this.price = price;
-		this.buyFrequency=buyFrequency;
+		this.quantity = quantity;
+		this.frequency = frequency;
+		this.orders = orders;
+		this.imageUrl = imageUrl;
+	}
+
+	public Menu(String name2, int price2, int quantity2, int frequency2, String imageUrl2) {
+		this.name = name2;
+		this.price = price2;
+		this.quantity = quantity2;
+		this.frequency = frequency2;
+		this.imageUrl = imageUrl2;
 	}
 
 	public long getMenuId() {
 		return menuId;
 	}
 
-	public int getBuyFrequency() {
-		return buyFrequency;
-	}
-
-	public void setBuyFrequency(int buyFrequency) {
-		this.buyFrequency = buyFrequency;
-	}
-
-	public Menu() {
-		super();
-	}
-
 	public void setMenuId(long menuId) {
 		this.menuId = menuId;
 	}
 
-	public String getDishName() {
-		return dishName;
+	public String getName() {
+		return name;
 	}
 
-	public void setDishName(String dishName) {
-		this.dishName = dishName;
-	}
-
-	public String getDishType() {
-		return dishType;
-	}
-
-	public void setDishType(String dishType) {
-		this.dishType = dishType;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getPrice() {
@@ -67,5 +70,38 @@ public class Menu{
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(int frequency) {
+		this.frequency = frequency;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public List<Orders> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
+	
 
 }
