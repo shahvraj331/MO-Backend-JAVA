@@ -14,6 +14,15 @@ public class Feedback {
 	private int rating;
 	private String description;
 
+	public Feedback() {
+	}
+
+	public Feedback(long feedbackId, int rating, String description) {
+		this.feedbackId = feedbackId;
+		this.rating = rating;
+		this.description = description;
+	}
+
 	public long getFeedbackId() {
 		return feedbackId;
 	}
