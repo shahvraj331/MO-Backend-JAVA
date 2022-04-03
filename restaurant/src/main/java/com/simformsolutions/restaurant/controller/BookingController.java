@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simformsolutions.restaurant.model.DiningTable;
+import com.simformsolutions.restaurant.model.Feedback;
 import com.simformsolutions.restaurant.model.Menu;
 import com.simformsolutions.restaurant.model.Orders;
 import com.simformsolutions.restaurant.repository.CustomerRepo;
@@ -96,6 +98,15 @@ public class BookingController {
 		orders.setMenu(menus);
 		return new ResponseEntity<Orders>(ordersRepo.save(orders), HttpStatus.CREATED);
 
+	}
+	
+	@RequestMapping(value = "/feedback/{customerId}" ,method = RequestMethod.POST)
+	public ResponseEntity<Feedback> feedbackPost(@PathVariable("customerId") long customerId, @RequestParam("rating") int rating, @RequestParam("description") String description)
+	{
+		Feedback feedback = new Feedback(rating,description,customerRepo.findById(customerId).orElse(null));
+		//return new ResponseEntity<Restaurant>(restaurantRepo.findTablesById(restaurant.getRestaurantId()),HttpStatus.OK);
+		return new ResponseEntity<Feedback>(feedbackRepo.save(feedback),  HttpStatus.CREATED);
+		
 	}
 
 }
